@@ -1,0 +1,368 @@
+<html>
+
+<head>
+  <base href="/" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Документация по бухгалтерскому учёту</title>
+
+  <style>
+    :root {
+      --sidebar-width: 300px;
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #3498db;
+      --text-color: #333;
+      --bg-color: #f5f6fa;
+    }
+
+    :root[data-theme="dark"] {
+      --primary-color: #1a1a1a;
+      --secondary-color: #2d2d2d;
+      --accent-color: #4fa3d1;
+      --text-color: #e0e0e0;
+      --bg-color: #121212;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: linear-gradient(135deg, var(--bg-color) 0%, var(--accent-color) 100%);
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 0 1rem;
+    }
+
+    main {
+      flex: 1;
+      margin-right: 0;
+      background: var(--bg-color);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      max-width: 1200px;
+      margin: 2rem auto;
+      transition: margin-right 0.3s ease, background-color 0.3s ease;
+    }
+
+    main.sidebar-open {
+      margin-right: calc(var(--sidebar-width) + 2rem);
+    }
+
+    .nav-sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      right: calc(-1 * var(--sidebar-width));
+      top: 0;
+      background: var(--primary-color);
+      padding: 2rem 1rem;
+      overflow-y: auto;
+      transition: right 0.3s ease;
+    }
+
+    .nav-sidebar.open {
+      right: 0;
+    }
+
+    .toggle-sidebar {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-sidebar:hover {
+      background: var(--secondary-color);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      right: 100px;
+      top: 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-toggle:hover {
+      background: var(--secondary-color);
+    }
+
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    .nav-sidebar h2 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent-color);
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin: 0.5rem 0;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      display: block;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--secondary-color);
+      color: var(--accent-color);
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding: 10px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      color: var(--secondary-color);
+      margin: 2rem 0 1rem;
+      font-size: 1.8rem;
+      padding-top: 2rem;
+    }
+
+    .content-section {
+      padding: 1rem 2rem;
+      background: var(--bg-color);
+      border-radius: 15px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .image-container {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-caption {
+      margin-top: 1rem;
+      font-style: italic;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    .sources {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--accent-color);
+    }
+
+    .sources h3 {
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+
+    .sources-list {
+      list-style: none;
+    }
+
+    .sources-list li {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+
+    :root[data-theme="dark"] .sources-list li {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .sources-list a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .sources-list a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      main {
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      main.sidebar-open {
+        margin-right: 1rem;
+      }
+
+      .content-section {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="toggle-sidebar">Содержание</button>
+
+  <main>
+    <h1 style="padding: 1rem;">Документация по бухгалтерскому учёту</h1>
+
+    <div class="content-section">
+      <h3 id="intro">Введение</h3>
+      <p>Бухгалтерский учёт является важнейшей частью системы управления любой организации. Данная документация содержит
+        основные принципы и правила ведения бухгалтерского учёта.</p>
+
+      <h3 id="basic">Основные понятия</h3>
+      <p>В данном разделе рассматриваются ключевые термины и определения, необходимые для понимания принципов
+        бухгалтерского учёта. Включая такие понятия как актив, пассив, дебет, кредит и другие.</p>
+
+      <h3 id="documents">Первичные документы</h3>
+      <p>Подробное описание правил оформления и хранения первичной документации, требования к обязательным реквизитам,
+        сроки хранения различных видов документов.</p>
+
+
+      <h3 id="accounts">План счетов</h3>
+      <p>Полное описание плана счетов бухгалтерского учёта, включая структуру счета, субсчета и аналитические счета.
+        Основные правила работы с различными разделами плана счетов.</p>
+
+
+      <h3 id="reports">Отчетность</h3>
+      <p>Порядок составления и представления бухгалтерской отчетности. Формы отчетности, сроки представления,
+        особенности заполнения различных форм.</p>
+    </div>
+    <br>
+    <div class="sources content-section">
+      <h1>Источники</h1>
+      <ul class="sources-list">
+        <li><a href="https://www.consultant.ru/document/cons_doc_LAW_122855/">Федеральный закон "О бухгалтерском
+            учете" от 06.12.2011 N 402-ФЗ</a></li>
+        <li><a href="https://www.minfin.ru/ru/perfomance/accounting/">Министерство финансов РФ - Бухгалтерский учет и
+            отчетность</a></li>
+        <li><a href="https://www.nalog.gov.ru/rn77/taxation/accounting/">Федеральная налоговая служба - Бухгалтерская
+            отчетность</a></li>
+        <li><a href="https://www.glavbukh.ru/">Журнал "Главбух" - Профессиональный журнал для бухгалтеров</a></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <nav class="nav-sidebar">
+    <h2>Содержание</h2>
+    <ul class="nav-links">
+      <li><a href="#intro">Введение</a></li>
+      <li><a href="#basic">Основные понятия</a></li>
+      <li><a href="#documents">Первичные документы</a></li>
+      <li><a href="#accounts">План счетов</a></li>
+      <li><a href="#reports">Отчетность</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButton = document.querySelector('.toggle-sidebar');
+      const sidebar = document.querySelector('.nav-sidebar');
+      const main = document.querySelector('main');
+
+      toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        main.classList.toggle('sidebar-open');
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+              link.style.backgroundColor = '';
+            });
+            this.style.backgroundColor = 'var(--secondary-color)';
+          }
+        });
+      });
+
+      window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('h3[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        let currentSection = '';
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (window.pageYOffset >= sectionTop - 100) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.style.backgroundColor = '';
+          if (link.getAttribute('href') === `#${currentSection}`) {
+            link.style.backgroundColor = 'var(--secondary-color)';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
